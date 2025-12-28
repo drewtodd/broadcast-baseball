@@ -29,6 +29,42 @@ The game prioritizes immersive play-by-play and color commentary over UI density
 - Handles debugging and refactors
 - Does NOT invent new requirements
 
+## Session Guardrails
+
+To keep context clean and scalable, this project uses a strict separation of responsibilities.
+
+### Dx Guardrails (Design & Experience)
+Dx sessions are for:
+- Vision, scope, and product intent
+- Architecture boundaries and data models (conceptual, not code)
+- Event schemas and system contracts
+- Commentary rules, cadence, and tone
+- Milestone definition and sequencing
+- Identifying risks and tradeoffs early
+
+Dx sessions explicitly avoid:
+- Writing production-ready code
+- Debugging errors or stack traces
+- Tooling configuration and DevOps
+- Framework or library implementation details
+
+If a request drifts into implementation, it should be redirected to Dv.
+
+### Dv Guardrails (Development & Implementation)
+Dv sessions are for:
+- Implementing Dx decisions in code
+- Writing and refactoring Python modules
+- Debugging and testing
+- Tooling, CI, and environment setup
+- Performance and maintainability concerns
+
+Dv sessions must not:
+- Invent new product requirements
+- Expand scope without Dx approval
+- Override design constraints defined in docs
+
+When in doubt, Dx defines intent; Dv executes it.
+
 ---
 
 ## Technical Baseline
@@ -77,6 +113,9 @@ Architecture:
 - Structured events
 - Simulation → Commentary → Output
 - Play-by-play first, color layered on top
+
+If a request appears to be design-level (vision, scope, architecture, or product intent),
+pause implementation and recommend returning to a Dx session for clarification.
 
 Proceed only within these constraints.
 

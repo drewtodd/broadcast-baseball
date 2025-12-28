@@ -1,0 +1,39 @@
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+# Keep Ruff from walking common noise directories (even if they end up untracked)
+extend-exclude = [
+  ".venv",
+  "dist",
+  "build",
+  ".pytest_cache",
+  ".ruff_cache",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ruff.lint]
+# A solid default set for small-to-medium Python projects:
+# - E/F: pycodestyle/pyflakes (core correctness)
+# - I: import sorting
+# - B: bugbear (common footguns)
+# - UP: modernize to newer Python
+# - N: pep8-naming (light touch)
+# - RUF: Ruff-specific improvements
+select = ["E", "F", "I", "B", "UP", "N", "RUF"]
+
+# If you later add type checking, you can keep it separate (mypy/pyright).
+ignore = []
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+
+[tool.ruff.lint.per-file-ignores]
+# Tests often use asserts and looser naming on purpose.
+"tests/**.py" = ["N802", "N803", "N806"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
